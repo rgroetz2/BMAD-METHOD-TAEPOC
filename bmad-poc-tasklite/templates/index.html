@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskLite</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .task { margin: 10px 0; }
+        .completed { text-decoration: line-through; color: gray; }
+        input[type="text"] { padding: 8px; width: 200px; }
+        button { padding: 8px 12px; }
+    </style>
+</head>
+<body>
+    <h1>TaskLite</h1>
+    <div>
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+    <ul id="taskList">
+        {% for task in tasks %}
+        <li class="task {{ 'completed' if task.completed else '' }}" id="task-{{ task.id }}">
+            <input type="checkbox" {{ 'checked' if task.completed else '' }} onchange="toggleTask({{ task.id }})">
+            {{ task.description }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        async function addTask() {
+            const input = document.getElementById('taskInput');
+            const description = input.value.trim();
+            if (!description) return;
+            const response = await fetch('/tasks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ description })
+            });
+            if (response.ok) {
+                input.value = '';
+                location.reload(); // Simple reload to update list
+            }
+        }
+
+        async function toggleTask(id) {
+            const response = await fetch(`/tasks/${id}`, { method: 'PUT' });
+            if (response.ok) {
+                location.reload(); // Simple reload to update status
+            }
+        }
+    </script>
+</body>
+</html>
