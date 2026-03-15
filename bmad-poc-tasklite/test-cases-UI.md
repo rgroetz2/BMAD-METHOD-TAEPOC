@@ -1,0 +1,37 @@
+# TaskLite UI Test Cases (T1T5)
+
+## Use Case: Add Task from Homepage
+- T1_addTask_userEntersValidDescriptionAndClicksAddButton_taskIsAddedAndVisibleInTaskList [Risk: 5]
+- T2_addTask_userPressesEnterWithValidDescription_taskIsAddedAndVisibleInTaskList [Risk: 3]
+- T3_addTask_userSubmitsValidDescriptionDuringTemporaryNetworkInterruption_userSeesNoDuplicateTaskAfterRecovery [Risk: 4]
+- T4_addTask_userEntersWhitespaceOnlyDescriptionAndClicksAddButton_taskIsNotCreatedAndTaskListRemainsUnchanged [Risk: 5]
+- T5_addTask_userSubmitsScriptLikeDescription_taskIsStoredSafelyAndRenderedWithoutExecutingScript [Risk: 4]
+
+## Use Case: View Task List with Existing Tasks
+- T1_viewTaskList_userOpensHomepageWithExistingTasks_allTasksAreDisplayedWithDescriptionAndCompletionState [Risk: 5]
+- T2_viewTaskList_userRefreshesHomepageAfterTaskCreation_newTaskAppearsInRenderedTaskList [Risk: 4]
+- T3_viewTaskList_userLoadsHomepageWhileOneTaskRecordIsCorrupted_pageRendersRemainingTasksAndHandlesErrorGracefully [Risk: 2]
+- T4_viewTaskList_userRequestsTaskListWithInvalidClientSideFilterState_systemIgnoresInvalidStateAndShowsServerTruth [Risk: 2]
+- T5_viewTaskList_userManipulatesDomToFakeCompletedStyleWithoutServerUpdate_reloadRestoresActualPersistedState [Risk: 3]
+
+## Use Case: View Empty State
+- T1_viewEmptyState_userOpensHomepageWithNoTasks_userSeesNoTasksYetMessage [Risk: 4]
+- T2_viewEmptyState_userDeletesLastTaskAndReloadsHomepage_userSeesNoTasksYetMessage [Risk: 3]
+- T3_viewEmptyState_userLoadsHomepageAfterDbReconnectWithNoTasks_userSeesNoTasksYetMessage [Risk: 2]
+- T4_viewEmptyState_userOpensHomepageWithBlankButNonEmptyDomState_userDoesNotSeePhantomTaskRows [Risk: 2]
+- T5_viewEmptyState_userInjectsHiddenTaskRowIntoDomWithoutBackendData_reloadShowsNoTasksYetMessageOnly [Risk: 2]
+
+## Use Case: Toggle Task Completion
+- T1_toggleTaskCompletion_userClicksUncheckedTaskCheckbox_taskBecomesCompletedAndVisuallyStruckThrough [Risk: 5]
+- T2_toggleTaskCompletion_userClicksCheckedTaskCheckbox_taskBecomesIncompleteAndVisualCompletedStyleIsRemoved [Risk: 4]
+- T3_toggleTaskCompletion_userClicksCheckboxWhileServerReturnsIntermittentFailure_uiStateRemainsConsistentAfterReload [Risk: 4]
+- T4_toggleTaskCompletion_userClicksCheckboxForNonExistingTaskId_systemRejectsUpdateAndUiDoesNotShowFalseSuccess [Risk: 5]
+- T5_toggleTaskCompletion_userRapidlyTogglesCheckboxToRaceUpdates_finalStateMatchesLastSuccessfulServerResponse [Risk: 4]
+
+## Use Case: Persist UI State Across Reload
+- T1_persistUiState_userReloadsHomepageAfterCreatingTask_createdTaskRemainsVisibleAfterReload [Risk: 5]
+- T2_persistUiState_userReloadsHomepageAfterCompletingTask_completedStyleRemainsAppliedAfterReload [Risk: 5]
+- T3_persistUiState_userReloadsHomepageAfterServerRestartWithPersistentDb_tasksRemainVisibleAndAccurate [Risk: 4]
+- T4_persistUiState_userReloadsHomepageAfterClientCacheCorruption_uiReflectsServerDataNotStaleCache [Risk: 3]
+- T5_persistUiState_userTamperWithLocalStateBeforeReload_reloadRestoresTrustedServerTaskState [Risk: 3]
+

@@ -245,6 +245,22 @@ Approve and create a folder:
 
 ---
 
+## BMAD Test Architect
+Then in your IDE chat, start TEA flow with:
+/bmad:tea:automate
+
+
+
+
+
+## BMAD Test Architect UI Tests
+Act as murat the BMAD Test Architect.
+Create a set of tests for validating every UI use case.
+For each usecase create a set  of T1T5 test scenarios according to TestDesignTechnique-T1T5.md
+Create only the title of the test cases according to the T1T5 syntax.
+Give every test scenario a risk score.
+Store the outcome in test-cases-UI.md
+
 ## 10. Run the BMAD improvement loop
 
 Now simulate the Measure–Analyze–Decide part.
